@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
-import './user_transactions.dart';
 
-class NewTransaction extends StatelessWidget {
+class NewTransaction extends StatefulWidget {
   // const NewTransaction({ Key? key }) : super(key: key);
 
   final Function addNewTransaction;
 
   NewTransaction(this.addNewTransaction);
 
+  @override
+  State<NewTransaction> createState() => _NewTransactionState();
+}
+
+class _NewTransactionState extends State<NewTransaction> {
   final titlecontroller = TextEditingController();
   final amountcontroller = TextEditingController();
 
@@ -19,7 +23,9 @@ class NewTransaction extends StatelessWidget {
       return;
     }
 
-    addNewTransaction(title, amount);
+    widget.addNewTransaction(title, amount);
+
+    Navigator.of(context).pop(); //closes the top most screen
   }
 
   @override
@@ -32,7 +38,7 @@ class NewTransaction extends StatelessWidget {
             TextField(
               decoration: InputDecoration(
                 labelText: 'Title',
-                focusColor: Colors.blue,
+                focusColor: Theme.of(context).accentColor,
               ),
               // onChanged: (val) => titleinput = val,
               controller: titlecontroller,
@@ -49,7 +55,7 @@ class NewTransaction extends StatelessWidget {
             ),
             OutlinedButton(
               style: OutlinedButton.styleFrom(
-                primary: Colors.blueAccent,
+                primary: Theme.of(context).accentColor,
               ),
               onPressed: submitData,
               // print(amountinput);
