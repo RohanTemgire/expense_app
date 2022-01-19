@@ -44,6 +44,18 @@ class _NewTransactionState extends State<NewTransaction> {
               controller: titlecontroller,
               onSubmitted: (_) => submitData(),
             ),
+            Row(
+              children: <Widget>[
+                Text('No date chosen.'),
+                OutlinedButton(
+                  child: Text('Add Date'),
+                  onPressed: () {},
+                  style: OutlinedButton.styleFrom(
+                    primary: Theme.of(context).accentColor,
+                  ),
+                )
+              ],
+            ),
             TextField(
               decoration: InputDecoration(
                 labelText: 'Amount',
