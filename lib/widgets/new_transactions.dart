@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:expense_app/widgets/adaptive_flat_button.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -51,65 +55,67 @@ class _NewTransactionState extends State<NewTransaction> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Container(
-        margin: EdgeInsets.all(15),
-        child: Column(
-          children: [
-            TextField(
-              decoration: InputDecoration(
-                labelText: 'Title',
-                focusColor: Theme.of(context).accentColor,
+      child: SingleChildScrollView(
+        child: Container(
+          margin: EdgeInsets.only(
+            top: 10,
+            left: 10,
+            right: 10,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 10,
+          ),
+          child: Column(
+            children: [
+              // CupertinoTextField()  this is mostly same as the material textField
+              TextField(
+                decoration: InputDecoration(
+                  labelText: 'Title',
+                  focusColor: Theme.of(context).accentColor,
+                ),
+                // onChanged: (val) => titleinput = val,
+                controller: titlecontroller,
+                onSubmitted: (_) => _submitData(),
               ),
-              // onChanged: (val) => titleinput = val,
-              controller: titlecontroller,
-              onSubmitted: (_) => _submitData(),
-            ),
-            Container(
-              height: 70,
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Text(
-                      _pickedDate == null
-                          ? 'No Date Chosen'
-                          : 'Selected Date: ${DateFormat.yMd().format(_pickedDate)}',
+              Container(
+                height: 70,
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Text(
+                        _pickedDate == null
+                            ? 'No Date Chosen'
+                            : 'Selected Date: ${DateFormat.yMd().format(_pickedDate)}',
+                      ),
                     ),
-                  ),
-                  OutlinedButton(
-                    child: Text('Add Date'),
-                    onPressed: _presentDatePicker,
-                    style: OutlinedButton.styleFrom(
-                      primary: Theme.of(context).accentColor,
-                    ),
-                  )
-                ],
+                    AdaptiveFlatButton('Add Date',_presentDatePicker),
+                  ],
+                ),
               ),
-            ),
-            TextField(
-              decoration: InputDecoration(
-                labelText: 'Amount',
+              TextField(
+                decoration: InputDecoration(
+                  labelText: 'Amount',
+                ),
+                // onChanged: (val) => amountinput = val,
+                controller: amountcontroller,
+                onSubmitted: (_) => _submitData(),
+                keyboardType: TextInputType.number,
               ),
-              // onChanged: (val) => amountinput = val,
-              controller: amountcontroller,
-              onSubmitted: (_) => _submitData(),
-              keyboardType: TextInputType.number,
-            ),
-            OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                primary: Theme.of(context).accentColor,
-              ),
-              onPressed: _submitData,
-              // print(amountinput);
-              // print(titleinput);
-              // print(amountcontroller.text);
-              // print(titlecontroller.text);
-              // addNewTransaction(
-              //   titlecontroller.text,
-              //   double.parse(amountcontroller.text),
-              // );
-              child: Text('Add Transaction'),
-            )
-          ],
+              OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  primary: Theme.of(context).accentColor,
+                ),
+                onPressed: _submitData,
+                // print(amountinput);
+                // print(titleinput);
+                // print(amountcontroller.text);
+                // print(titlecontroller.text);
+                // addNewTransaction(
+                //   titlecontroller.text,
+                //   double.parse(amountcontroller.text),
+                // );
+                child: Text('Add Transaction'),
+              )
+            ],
+          ),
         ),
       ),
     );
