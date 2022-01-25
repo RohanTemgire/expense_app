@@ -21,6 +21,12 @@ class _NewTransactionState extends State<NewTransaction> {
   final amountcontroller = TextEditingController();
   var _pickedDate;
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   void _submitData() {
     final title = titlecontroller.text;
     final amount = double.parse(amountcontroller.text);
@@ -86,7 +92,7 @@ class _NewTransactionState extends State<NewTransaction> {
                             : 'Selected Date: ${DateFormat.yMd().format(_pickedDate)}',
                       ),
                     ),
-                    AdaptiveFlatButton('Add Date',_presentDatePicker),
+                    AdaptiveFlatButton('Add Date', _presentDatePicker),
                   ],
                 ),
               ),
