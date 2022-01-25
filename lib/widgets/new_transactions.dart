@@ -23,8 +23,20 @@ class _NewTransactionState extends State<NewTransaction> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    // this is usually used to load the http requests from the server before the states starts running
     super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant NewTransaction oldWidget) {
+    // TODO: implement didUpdateWidget
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  void dispose() {
+    // This runs at the end, when the widget is closed. this is useful to close the on going connections after the user exits the widget
+    super.dispose();
   }
 
   void _submitData() {

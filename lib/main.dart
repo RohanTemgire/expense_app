@@ -65,16 +65,17 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+//here with means that you add additional properties, methods or something without fully inheriting the whole class
+class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   // const MyHomePage({Key? key}) : super(key: key);
 
   final List<Transaction> _userTransactions = [
-    // Transaction(
-    //   id: 't1',
-    //   title: 'new Shoes',
-    //   amount: 2500,
-    //   date: DateTime.now(),
-    // ),
+    Transaction(
+      id: 't1',
+      title: 'new Shoes',
+      amount: 2500,
+      date: DateTime.now(),
+    ),
     // Transaction(
     //   id: 't2',
     //   title: 'Weekly Groceries',
@@ -83,6 +84,25 @@ class _MyHomePageState extends State<MyHomePage> {
     // ),
   ];
   bool _showChart = false;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance!.addObserver(this);
+    super.initState();
+  }
+
+  @override //always apply this on a state object
+  didChangeAppLifecycleState(AppLifecycleState state) {
+    print(state);
+  }
+
+  @override
+  disspose() {
+    WidgetsBinding.instance!.removeObserver(
+        this); //this removes all the instance like the ongoin connections after the app is disposed
+    super
+        .initState(); //for this we need to set first the observer using the initState()
+  }
 
   List<Transaction> get _recentTransations {
     return _userTransactions.where((tx) {
@@ -176,7 +196,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final isLandscape = mediaQuery.orientation == Orientation.landscape;
     final appBar = Platform.isIOS
         ? CupertinoNavigationBar(
-            middle: Text("Expense App"),
+            middle: const Text("Expense App"),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -188,8 +208,8 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           )
         : AppBar(
-            backgroundColor: Color.fromRGBO(255, 99, 99, 1),
-            title: Text("Expense App"),
+            backgroundColor: const Color.fromRGBO(255, 99, 99, 1),
+            title: const Text("Expense App"),
             actions: <Widget>[
               IconButton(
                 onPressed: () => _startAddNewTransaction(context),
@@ -250,7 +270,7 @@ class _MyHomePageState extends State<MyHomePage> {
             floatingActionButton: Platform.isIOS
                 ? Container()
                 : FloatingActionButton(
-                    child: Icon(Icons.add),
+                    child: const Icon(Icons.add),
                     onPressed: () => _startAddNewTransaction(context),
                   ),
           );
